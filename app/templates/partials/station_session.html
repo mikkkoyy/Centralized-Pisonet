@@ -1,0 +1,28 @@
+<div class="card session-card">
+  <div class="card-head">
+    <h2>Current session</h2>
+    <span class="badge badge-{{ state }}">{{ state }}</span>
+  </div>
+  {% if session %}
+  <div class="session-grid">
+    <div class="session-block">
+      <span class="stat-label">Remaining</span>
+      <span class="session-time">{{ remaining }}s</span>
+    </div>
+    <div class="session-block">
+      <span class="stat-label">Granted</span>
+      <span class="mono">{{ session.granted_seconds }}s</span>
+    </div>
+    <div class="session-block">
+      <span class="stat-label">Started</span>
+      <span class="mono">{{ session.started_at }}</span>
+    </div>
+    <div class="session-block">
+      <span class="stat-label">Lock</span>
+      <span>{{ lock }}</span>
+    </div>
+  </div>
+  {% else %}
+  <p class="empty">No active session. The station is locked.</p>
+  {% endif %}
+</div>

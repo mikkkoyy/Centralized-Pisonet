@@ -1,0 +1,11 @@
+{% if total > limit %}
+<nav class="pagination">
+  {% if page > 1 %}
+  <a class="btn btn-ghost btn-sm" href="?page={{ page - 1 }}">&larr; Prev</a>
+  {% endif %}
+  <span class="muted">Page {{ page }} of {{ (total / limit)|round(0, 'ceil')|int }}</span>
+  {% if page * limit < total %}
+  <a class="btn btn-ghost btn-sm" href="?page={{ page + 1 }}">Next &rarr;</a>
+  {% endif %}
+</nav>
+{% endif %}

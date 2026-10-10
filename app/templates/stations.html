@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Stations{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Stations</h1>
+  <a class="btn btn-primary btn-sm" href="/dashboard/stations">Refresh</a>
+</div>
+
+{% if rows %}
+<div class="grid">
+  {% for row in rows %}
+  <a class="card station-card state-{{ row.state }}" href="/dashboard/stations/{{ row.station.station_code }}">
+    <div class="station-top">
+      <span class="station-code">{{ row.station.station_code }}</span>
+      <span class="badge badge-{{ row.state }}">{{ row.state }}</span>
+    </div>
+    <div class="station-name">{{ row.station.display_name or "—" }}</div>
+    <div class="station-meta">
+      <span>Lock: {{ row.lock }}</span>
+      {% if row.remaining > 0 %}
+      <span>Remaining: {{ row.remaining }}s</span>
+      {% endif %}
+      <span>Seen: {{ row.station.last_seen_at or "never" }}</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card">
+  <p class="empty">No stations enrolled yet. Enroll stations through the API
+    (<code>POST /api/v1/stations/register</code>) or the admin API.</p>
+</div>
+{% endif %}
+{% endblock %}

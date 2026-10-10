@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Overview</h1>
+  <span class="muted">Server time {{ server_time }}</span>
+</div>
+
+<div class="stat-grid">
+  <div class="card stat">
+    <span class="stat-value">{{ total_stations }}</span>
+    <span class="stat-label">Stations</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value ok">{{ counts.available }}</span>
+    <span class="stat-label">Available</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value warn">{{ counts.occupied }}</span>
+    <span class="stat-label">Occupied</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value dim">{{ counts.offline }}</span>
+    <span class="stat-label">Offline</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value bad">{{ counts.revoked }}</span>
+    <span class="stat-label">Revoked</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value">{{ active_sessions }}</span>
+    <span class="stat-label">Active sessions</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value">&#8369;{{ "%.2f"|format(today_cents / 100) }}</span>
+    <span class="stat-label">Credits today (UTC)</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head">
+    <h2>Recent activity</h2>
+    <a class="btn btn-ghost btn-sm" href="/dashboard/audit">View all</a>
+  </div>
+  {% if recent_activity %}
+  <table class="table">
+    <thead>
+      <tr><th>Time</th><th>Actor</th><th>Event</th><th>Summary</th></tr>
+    </thead>
+    <tbody>
+      {% for e in recent_activity %}
+      <tr>
+        <td class="mono">{{ e.created_at }}</td>
+        <td>{{ e.actor_type }}{% if e.actor_id %} #{{ e.actor_id }}{% endif %}</td>
+        <td><span class="chip chip-neutral">{{ e.event_type }}</span></td>
+        <td>{{ e.summary }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No activity yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

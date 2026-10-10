@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Sessions{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Sessions</h1></div>
+<div class="card">
+  {% if items %}
+  <table class="table">
+    <thead>
+      <tr><th>ID</th><th>Station</th><th>Granted</th><th>Started</th><th>Ended</th><th>Reason</th><th>Remaining</th></tr>
+    </thead>
+    <tbody>
+      {% for i in items %}
+      <tr>
+        <td class="mono">{{ i.session.id }}</td>
+        <td>{{ i.station_code }}</td>
+        <td>{{ i.session.granted_seconds }}s</td>
+        <td class="mono">{{ i.session.started_at }}</td>
+        <td class="mono">{{ i.session.ended_at or "—" }}</td>
+        <td>{% if i.session.end_reason %}<span class="chip chip-neutral">{{ i.session.end_reason }}</span>{% else %}<span class="badge badge-active">active</span>{% endif %}</td>
+        <td>{{ i.remaining }}s</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No sessions recorded.</p>
+  {% endif %}
+</div>
+{% include "partials/pagination.html" %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Ledger{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Ledger</h1></div>
+<div class="card">
+  {% if items %}
+  <table class="table">
+    <thead>
+      <tr><th>ID</th><th>Station</th><th>Amount</th><th>Seconds</th><th>Session</th><th>Time</th><th>Idempotency key</th></tr>
+    </thead>
+    <tbody>
+      {% for i in items %}
+      <tr>
+        <td class="mono">{{ i.entry.id }}</td>
+        <td>{{ i.station_code }}</td>
+        <td>&#8369;{{ "%.2f"|format(i.entry.amount_cents / 100) }}</td>
+        <td>{{ i.entry.seconds_credited }}s</td>
+        <td class="mono">{{ i.entry.session_id or "—" }}</td>
+        <td class="mono">{{ i.entry.created_at }}</td>
+        <td class="mono mono-sm">{{ i.entry.idempotency_key }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No ledger entries.</p>
+  {% endif %}
+</div>
+{% include "partials/pagination.html" %}
+{% endblock %}

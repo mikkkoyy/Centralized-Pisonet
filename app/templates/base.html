@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}MKY PisoNet Central{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/site.css">
+  <script src="/static/js/htmx.min.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>MKY PisoNet Central</span>
+    </div>
+    {% if admin %}
+    <nav class="mainnav">
+      <a href="/dashboard/overview">Overview</a>
+      <a href="/dashboard/stations">Stations</a>
+      <a href="/dashboard/sessions">Sessions</a>
+      <a href="/dashboard/ledger">Ledger</a>
+      <a href="/dashboard/audit">Audit</a>
+    </nav>
+    <div class="user-chip">
+      <span class="user-name">{{ admin.username }}</span>
+      <form method="post" action="/dashboard/logout" class="inline">
+        <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+        <button class="btn btn-ghost" type="submit">Sign out</button>
+      </form>
+    </div>
+    {% endif %}
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">
+    <span>MKY PisoNet Central v0.1.0 · local LAN operation · no cloud dependency</span>
+  </footer>
+</body>
+</html>

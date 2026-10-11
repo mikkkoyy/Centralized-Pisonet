@@ -34,3 +34,11 @@ backups/
 Thumbs.db
 .vscode/
 .idea/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/

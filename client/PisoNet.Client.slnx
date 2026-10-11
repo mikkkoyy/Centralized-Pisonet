@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="PisoNet.Client.Cli/PisoNet.Client.Cli.csproj" />
+  <Project Path="PisoNet.Client.Core.Tests/PisoNet.Client.Core.Tests.csproj" />
+  <Project Path="PisoNet.Client.Core/PisoNet.Client.Core.csproj" />
+  <Project Path="PisoNet.Client.WinForms/PisoNet.Client.WinForms.csproj" />
+</Solution>
